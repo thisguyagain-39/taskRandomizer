@@ -102,17 +102,6 @@
 
     }
 
-    function debugClearLocalStorage() {
-
-        localStorage.clear;
-    }
-
-    function debugMakeLocalStorage() {
-
-        localStorage.set([(new Task("testTask1","A task for testing purposes", false)), (new Task("Do an art study","Take some time to do an art study", true)), (new Task("aaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaa aaaaaaaaa aaaaaaaaaaaaaaaaaaaaaa aaaaaaa aaa aaaaaaaaaaaaaaaa", false))])
-
-    }
-
     function updateTasklist() {
 
         tasklist.forEach(task => {
@@ -139,22 +128,28 @@
 
 </script>
 
-<button onclick={pickRandom}> Hit Me! </button>
+<div class="buttonBarContainer">
+
+    <button> Add New Tasks </button>
+
+    <button> Settings </button>
+
+    <button onclick={pickRandom}> Hit Me! </button>
+
+</div>
 
 <div class="outContainer">
 
-{#if (pickedTask.name !== undefined )} <!-- this way of doing this kinda sucks but i couldnt figure out checking for empty object -->
+    {#if (pickedTask.name !== undefined )} <!-- this way of doing this kinda sucks but i couldnt figure out checking for empty objects -->
 
-    <h2> Your Task is: {pickedTask.name}! </h2>
-    <p> {pickedTask.description} </p>
+        <h2> Your Task is: {pickedTask.name}! </h2>
+        <p> {pickedTask.description} </p>
 
-    <!-- {console.log("did if")} -->
+        <!-- {console.log("did if")} -->
 
-    <button class="doneButton" onclick={() => queueForRemoval(pickedTask)}> Done! </button>
+        <button class="doneButton" onclick={() => queueForRemoval(pickedTask)}> Done! </button>
 
-{/if}
-
-
+    {/if}
 
 </div>
 
