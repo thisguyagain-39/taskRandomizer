@@ -1,0 +1,103 @@
+
+@use "sass:color" as clr;
+
+$dark-purple: #1f0717ff;
+$bright-pink-crayola: #ef476fff;
+$light-coral: #f36a6dff;
+$coral: #f78c6bff;
+$sunglow: #ffd166ff;
+$tiffany-blue: #9de4d8ff;
+$mint-green: #ccf1ebff;
+
+$fnt-main: monospace;
+$fnt-titles: "Roboto Condensed", "Impact", monospace;
+
+$clr-bg: clr.adjust($sunglow, $lightness:-10%);
+
+
+
+h1 {
+
+    font-family: $fnt-titles;
+
+    color:$dark-purple;
+
+    width: 60vw;
+
+    text-align: center;
+
+    font-size: 2.5rem;
+
+    > em {
+
+        color: clr.adjust($bright-pink-crayola, $lightness: -20%);
+
+        
+    }
+}
+
+button, input[type="submit"] {
+
+    transition:0.2s;
+
+    padding: 2%;
+    margin-right:1%;
+    margin-left:1%;
+
+    background-color: clr.adjust($sunglow, $lightness:20%);
+    border: 1px solid clr.adjust($coral, $lightness:5%);
+
+    border-radius: 34px;
+
+}
+
+button:hover {
+
+    transition: 0.2s;
+
+    background-color: clr.adjust($sunglow, $lightness:-10%, $saturation: -10% );
+}
+
+.buttonBarContainer {
+
+    margin-top: 10%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+.outcontainer {
+
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+
+    align-items: center;
+}
+
+form {
+
+    padding: 5%;
+
+    display: flex;
+    flex-direction: column;
+
+    > * {
+
+        margin: 1vh 0 1vh 0;
+    }
+}
+
+input[type="text"] {
+
+    padding: 2%;
+
+    border-radius: 34px;
+
+    background-color: clr.adjust($sunglow, $lightness:20%);
+
+    border: 1px solid clr.adjust($coral, $lightness:5%);
+
+}

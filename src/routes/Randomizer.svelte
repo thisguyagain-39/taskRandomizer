@@ -1,4 +1,7 @@
 <script>
+
+    // todo: add settings page, add taskadd page
+
     import { json } from "@sveltejs/kit";
 
     import { onMount } from "svelte";
@@ -6,6 +9,8 @@
     let pickedTask = $state({})
 
     let tasklist = $state([]); // becomes an object in onmount, needs to be global so we can access it in the pickRandom function
+
+    let { currentComponent = $bindable()} = $props()
 
     class Task {
 
@@ -26,19 +31,17 @@
         // if yes, load tasklist from storage
         // if no, load default tasklist
 
-        tasklist = localStorage.getItem("tasklist")
+        tasklist = (localStorage.getItem("tasklist"))
 
-        if (tasklist) {
+        if (tasklist == false || tasklist == [] || tasklist === null)  {
 
-            tasklist = JSON.parse(tasklist)
+            tasklist = ([(new Task("Nothing!", "The task list is empty. Mark this as done, then go add some tasks under 'Add New Tasks.'", false))])
+
+            localStorage.setItem("tasklist", JSON.stringify(tasklist))
             
         } else { 
 
-           
-
-            tasklist = ([(new Task("testTask1","A task for testing purposes", false)), (new Task("Do an art study","Take some time to do an art study", true)), (new Task("aaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaa aaaaaaaaa aaaaaaaaaaaaaaaaaaaaaa aaaaaaa aaa aaaaaaaaaaaaaaaa", false))])
-
-            localStorage.setItem("tasklist", JSON.stringify(tasklist))
+            tasklist = JSON.parse(tasklist)
             
         }
 
@@ -47,8 +50,6 @@
         $inspect(pickedTask)
 
 	});
-
-
 
     function pickRandom(){
 
@@ -103,6 +104,7 @@
     }
 
     function updateTasklist() {
+        
 
         tasklist.forEach(task => {
 
@@ -116,6 +118,15 @@
             
         });
 
+        if (tasklist == false || tasklist == [] || tasklist === null)  {
+
+            tasklist = ([(new Task("Nothing!", "The task list is empty. Mark this as done, then go add some tasks under 'Add New Tasks.'", false))])
+
+            localStorage.setItem("tasklist", JSON.stringify(tasklist))
+
+        } 
+
+
         updateLocalStorage()
 
     }
@@ -124,17 +135,19 @@
 
         localStorage.setItem("tasklist", JSON.stringify(tasklist))
     }
+
+
     
 
 </script>
 
 <div class="buttonBarContainer">
 
-    <button> Add New Tasks </button>
+    <button onmouseup={() => currentComponent = "addtask"}> Add New Tasks </button>
 
-    <button> Settings </button>
+    <button onmouseup={() => currentComponent = "settings"}> Settings </button>
 
-    <button onclick={pickRandom}> Hit Me! </button>
+    <button onmouseup={pickRandom}> Hit Me! </button>
 
 </div>
 
@@ -147,7 +160,11 @@
 
         <!-- {console.log("did if")} -->
 
-        <button class="doneButton" onclick={() => queueForRemoval(pickedTask)}> Done! </button>
+        <div class="buttonBarDiv"> 
+    
+            <button class="doneButton" onclick={() => queueForRemoval(pickedTask)}> Done! </button>
+
+        </div>
 
     {/if}
 
@@ -156,6 +173,8 @@
 
 
 
-<style>
+<style lang="scss">
+
+    @use "_main.scss";
 
 </style>
